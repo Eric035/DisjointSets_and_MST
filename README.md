@@ -41,7 +41,7 @@ of a graph in increasing order of their weight.
 
 In kruskal.java, 
 
--the method isSafe considers a partition of the nodes p and an edge e, and should return True if it is safe to add the edge e to the MST, and False otherwise.
+- the method isSafe considers a partition of the nodes p and an edge e, and should return True if it is safe to add the edge e to the MST, and False otherwise.
 - The method kruskal will take a graph object of the class WGraph as an input, and return another WGraph object which will be the MST of the input graph.
 
 An example of the expected output is available in the file mst1.txt :)
