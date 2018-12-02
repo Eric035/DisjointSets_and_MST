@@ -23,7 +23,7 @@ public class Kruskal{
     {    		
     	if (p.find(e.nodes[0]) != p.find(e.nodes[1]))  // Make sure i and j are not in the same set, or else there will be a cycle occurs. 
     	{
-   			return true;
+   		    return true;
     	}
         return false;
     }
