@@ -1,8 +1,8 @@
-package A2;
 import java.io.*;
 import java.util.*;
 
-class Edge{
+class Edge                  // A sub-class for edges
+{
     
     public int[] nodes = new int[2]; /*The nodes connected by the edge*/
     public Integer weight; /*Integer so we can use Comparator*/
@@ -14,16 +14,20 @@ class Edge{
     }
 }
 
-public class WGraph{
+public class WGraph
+{
 
     private ArrayList<Edge> edges = new ArrayList<Edge>();
     private ArrayList<Integer> nodes = new ArrayList<Integer>();
     private int nb_nodes = 0;
 
-    WGraph() {
+    WGraph() 
+    {
+        
     }
 
-    WGraph(String file) throws RuntimeException {
+    WGraph(String file) throws RuntimeException 
+    {
         try {
             Scanner f = new Scanner(new File(file));
             int number_nodes = Integer.parseInt(f.nextLine()); /*first line is the number of nodes*/
@@ -42,17 +46,21 @@ public class WGraph{
             f.close();
 
             /*Sanity checks*/
-            if (number_nodes != this.nb_nodes){
+            if (number_nodes != this.nb_nodes)
+            {
                 throw new RuntimeException("There are " + this.nb_nodes + " nodes while the file specifies " + number_nodes);
             }
-            for (int i = 0; i < this.nodes.size(); i++){
-                if ((this.nodes.get(i) >= this.nb_nodes) || (this.nodes.get(i) < 0)){
+            for (int i = 0; i < this.nodes.size(); i++)
+            {
+                if ((this.nodes.get(i) >= this.nb_nodes) || (this.nodes.get(i) < 0))
+                {
                     throw new RuntimeException("The node " + this.nodes.get(i) + " is outside the range of admissible values, between 0 and " + this.nb_nodes + "-1");
                 }
             }
 
         }
-        catch (FileNotFoundException e){
+        catch (FileNotFoundException e)
+        {
             System.out.println("File not found!");
             System.exit(1);
         }
@@ -60,25 +68,31 @@ public class WGraph{
 
     }
 
-    public void addEdge(Edge e) throws RuntimeException{
+    public void addEdge(Edge e) throws RuntimeException
+    {
         /*Ensures that it is a new edge if both nodes already in the graph*/
         int n1 = e.nodes[0];
         int n2 = e.nodes[1];
-        if (this.nodes.indexOf(n1) >= 0 && this.nodes.indexOf(n2) >= 0){
-            for (int z = 0; z < this.edges.size(); z++){
+        if (this.nodes.indexOf(n1) >= 0 && this.nodes.indexOf(n2) >= 0)
+        {
+            for (int z = 0; z < this.edges.size(); z++)
+            {
                 int[] n = this.edges.get(z).nodes;
-                if ((n1 == n[0] && n2 == n[1]) || (n1 == n[1] && n2 == n[0])){
+                if ((n1 == n[0] && n2 == n[1]) || (n1 == n[1] && n2 == n[0]))
+                {
                     throw new RuntimeException("The edge (" + n1 + ", " + n2 + ") already exists");
                 }
             }
         }
 
         /*Update nb_nodes if necessary*/
-        if (this.nodes.indexOf(n1) == -1){
+        if (this.nodes.indexOf(n1) == -1)
+        {
             this.nodes.add(n1);
             this.nb_nodes += 1;
         }
-        if (this.nodes.indexOf(n2) == -1){
+        if (this.nodes.indexOf(n2) == -1)
+        {
             this.nodes.add(n2);
             this.nb_nodes += 1;
         }
@@ -86,9 +100,11 @@ public class WGraph{
         this.edges.add(e);
     }
 
-    public ArrayList<Edge> listOfEdgesSorted(){
+    public ArrayList<Edge> listOfEdgesSorted()
+    {
         ArrayList<Edge> edges = new ArrayList<Edge>(this.edges);
-        Collections.sort(edges, new Comparator<Edge>() {
+        Collections.sort(edges, new Comparator<Edge>() 
+        {
             public int compare(Edge  e1, Edge  e2) 
             {   
                 return  e1.weight.compareTo(e2.weight);
@@ -101,9 +117,11 @@ public class WGraph{
         return this.nb_nodes;
     }
 
-    public String toString(){
+    public String toString()
+    {
         String out = Integer.toString(this.nb_nodes);
-        for (int i = 0; i < this.edges.size(); i++){
+        for (int i = 0; i < this.edges.size(); i++)
+        {
             Edge e = edges.get(i);
             out += "\n" + e.nodes[0] + " " + e.nodes[1] + " " + e.weight;
         }
