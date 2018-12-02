@@ -8,34 +8,44 @@ public class DisjointSets {
     
     /* contructor: creates a partition of n elements. */
     /* Each element is in a separate disjoint set */
-    DisjointSets(int n) {
-        if (n>0) {
+    DisjointSets(int n) 
+    {
+        if (n > 0) 
+        {
             par = new int[n];
             rank = new int[n];
-            for (int i=0; i<this.par.length; i++) {
+            for (int i=0; i<this.par.length; i++) 
+            {
                 par[i] = i;
             } 
         }
     }
     
-    public String toString(){
+    public String toString()
+    {
         int pari,countsets=0;
         String output = "";
         String[] setstrings = new String[this.par.length];
         /* build string for each set */
-        for (int i=0; i<this.par.length; i++) {
+        for (int i=0; i<this.par.length; i++) 
+        {
             pari = find(i);
-            if (setstrings[pari]==null) {
+            if (setstrings[pari]==null) 
+            {
                 setstrings[pari] = String.valueOf(i);
-                countsets+=1;
-            } else {
+                countsets += 1;
+            } 
+            else 
+            {
                 setstrings[pari] += "," + i;
             }
         }
         /* print strings */
         output = countsets + " set(s):\n";
-        for (int i=0; i<this.par.length; i++) {
-            if (setstrings[i] != null) {
+        for (int i = 0; i < this.par.length; i++) 
+        {
+            if (setstrings[i] != null) 
+            {
                 output += i + " : " + setstrings[i] + "\n";
             }
         }
@@ -47,12 +57,12 @@ public class DisjointSets {
     {
         if (this.par[i] == i)   // means i is the root, simply returns i.
         {
-        		return i;
+        	return i;
         }
         else
         {	
-        		this.par[i] = find(this.par[i]);   // Path compression seen in class
-        		return this.par[i];
+        	this.par[i] = find(this.par[i]);   // Path compression 
+        	return this.par[i];
         }
     }	
     
