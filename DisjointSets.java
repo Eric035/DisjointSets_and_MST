@@ -25,7 +25,7 @@ public class DisjointSets {
             rank = new int[n];
             for (int i=0; i<this.par.length; i++) {
                 par[i] = i;
-            }
+            } 
         }
     }
     
@@ -53,25 +53,53 @@ public class DisjointSets {
         return output;
     }
     
-    /* find resentative of element i */
-    public int find(int i) {
+    /* find representative of element i */
+    public int find (int i) {
 
         /* Fill this method (The statement return 0 is here only to compile) */
-        return 0;
-        
-    }
-
+        if (this.par[i] == i)   // means i is the root, simply returns i.
+        {
+        		return i;
+        }
+        else
+        {	
+        		this.par[i] = find(this.par[i]);   // Path compression seen in class
+        		return this.par[i];
+        }
+    }	
+    
     /* merge sets containing elements i and j */
     public int union(int i, int j) {
     
         /* Fill this method (The statement return 0 is here only to compile) */
-        return 0;
-        
+    	
+    	   if (this.find(i) != this.find(j))    // Determine if i and j are in different sets.
+       {
+    		   if (this.rank[find(i)] > this.rank[find(j)])   // Case where the size of the tree containing i is larger than the size of the tree containing j, merge j into i. 
+    		   {
+    			   this.par[find(j)] = find(i);
+    			   return find(i);
+    		   }
+    		   else if (this.rank[find(i)] < this.rank[find(j)])  // Case where the size of the tree that contains i is less than or equals to the size of the tree that contains j, merge i into j. 
+    		   {
+    			   this.par[find(i)] = find(j);
+    			   return find(j);
+    		   }
+    		   else if (this.rank[find(i)] == this.rank[find(j)])  // When the ranks for i and j are equals than merge i into j.
+    		   {
+    			   this.par[find(i)] = find(j);
+    			   this.rank[find(j)]++;   // We update the rank of the new root which is j.
+    			   return find(j);
+    		   }
+       }
+       return find(i);  // for the case where find(i) == find(j), ie. i and j are in the same set.
     }
     
     public static void main(String[] args) {
         
+    		
         DisjointSets myset = new DisjointSets(6);
+          
         System.out.println(myset);
         System.out.println("-> Union 2 and 3");
         myset.union(2,3);
