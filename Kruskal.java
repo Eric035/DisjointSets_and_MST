@@ -1,12 +1,9 @@
-package A2;
 import java.util.*;
 
 public class Kruskal{
 
-    public static WGraph kruskal(WGraph g){
-
-        /* Fill this method (The statement return null is here only to compile) */
-    
+    public static WGraph kruskal(WGraph g)
+    { 
     		WGraph minST = new WGraph(); // MST to return 
     		ArrayList<Edge> sortedEdges = g.listOfEdgesSorted(); // Sort the edges of input graph g first.
     		DisjointSets setOfG = new DisjointSets(g.getNbNodes());   // Create a DisjointSets object based on the nodes of the input graph g.
@@ -22,20 +19,18 @@ public class Kruskal{
         return minST;
     }
 
-    public static Boolean IsSafe(DisjointSets p, Edge e){
-
-        /* Fill this method (The statement return 0 is here only to compile) */
-    		
-    		if (p.find(e.nodes[0]) != p.find(e.nodes[1]))  // Make sure i and j are not in the same set, or else there will be a cycle occurs. 
-    		{
-    			return true;
-    		}
+    public static Boolean IsSafe(DisjointSets p, Edge e)
+    {    		
+    	if (p.find(e.nodes[0]) != p.find(e.nodes[1]))  // Make sure i and j are not in the same set, or else there will be a cycle occurs. 
+    	{
+   			return true;
+    	}
         return false;
     }
 
     public static void main(String[] args){
 
-    		String file = args[0];
+    	String file = args[0];
         WGraph g = new WGraph(file);
         WGraph t = kruskal(g);
         System.out.println(t);
